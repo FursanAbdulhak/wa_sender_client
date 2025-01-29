@@ -1,5 +1,5 @@
 {
-    "name": "alareqi/filament-whatsapp",
+    "name": "alareqi/wa_sender_client",
     "description": "Activity logger for filament",
     "keywords": [
         "laravel",
