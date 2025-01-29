@@ -1,0 +1,38 @@
+{
+    "name": "alareqi/filament-whatsapp",
+    "description": "Activity logger for filament",
+    "keywords": [
+        "laravel",
+        "filament-whatsapp"
+    ],
+    "homepage": "https://github.com/aymanalareqi/filament-whatsapp",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fursan Alareqi",
+            "email": "fursan.alareqi@gmail.com",
+            "role": "Full Stack Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0 | ^8.1"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Alareqi\\FilamentWhatsapp\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Alareqi\\FilamentWhatsapp\\FilamentWhatsappServiceProvider"
+            ],
+            "aliases": {
+                "Whatsapp": "Alareqi\\FilamentWhatsapp\\Facades\\Whatsapp"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
