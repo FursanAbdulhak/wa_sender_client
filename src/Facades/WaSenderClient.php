@@ -4,11 +4,12 @@ namespace Alareqi\FilamentWhatsapp\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Whatsapp extends Facade
+class WaSenderClient extends Facade
 {
+
 
     protected static function getFacadeAccessor()
     {
-        return 'whatsapp';
+        return 'WaSenderClient';
     }
 }

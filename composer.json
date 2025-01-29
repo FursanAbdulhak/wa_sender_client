@@ -26,10 +26,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Alareqi\\FilamentWhatsapp\\FilamentWhatsappServiceProvider"
+                "Alareqi\\FilamentWhatsapp\\WaSenderClientServiceProvider"
             ],
             "aliases": {
-                "Whatsapp": "Alareqi\\FilamentWhatsapp\\Facades\\Whatsapp"
+                "Whatsapp": "Alareqi\\FilamentWhatsapp\\Facades\\WaSenderClient"
             }
         }
     },
