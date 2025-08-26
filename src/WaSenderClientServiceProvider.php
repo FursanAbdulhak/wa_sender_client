@@ -2,29 +2,20 @@
 
 namespace Alareqi\FilamentWhatsapp;
 
+use Illuminate\Support\ServiceProvider;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-
-class WaSenderClientServiceProvider extends PackageServiceProvider
+class WaSenderClientServiceProvider extends ServiceProvider
 {
-
-    public function configurePackage(Package $package): void
+    /**
+     * Register services.
+     */
+    public function register(): void
     {
-        $package
-            ->name('wa-sender-client')
-            ->hasConfigFile()
-            ->hasTranslations();
-    }
+        // Merge configuration
+        $this->mergeConfigFrom(__DIR__ . '/../config/wa-sender-client.php', 'wa-sender-client');
 
-    public function registeringPackage(): void
-    {
-        $this->publishes([
-            __DIR__ . '/../config/wa-sender-client.php' => config_path('wa-sender-client.php',),
-        ], 'wa-sender-client');
-
-
-        $this->app->bind('WaSenderClient', function ($app) {
+        // Bind the WhatsApp client
+        $this->app->bind('WaSenderClient', function () {
             return new WhatsappClient(
                 config('wa-sender-client.apiUrl'),
                 config('wa-sender-client.appkey'),
@@ -35,8 +26,33 @@ class WaSenderClientServiceProvider extends PackageServiceProvider
         $this->app->alias('WaSenderClient', 'Alareqi\FilamentWhatsapp\Facades\WaSenderClient');
     }
 
-    public function packageBooted(): void
+    /**
+     * Bootstrap services.
+     */
+    public function boot(): void
     {
-        parent::packageBooted();
+        // Load helper functions
+        require_once __DIR__ . '/helpers.php';
+
+        // Publish configuration
+        $this->publishes([
+            __DIR__ . '/../config/wa-sender-client.php' => config_path('wa-sender-client.php'),
+        ], 'wa-sender-client-config');
+
+        // Load views
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'wa-sender-client');
+
+        // Publish views
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/wa-sender-client'),
+        ], 'wa-sender-client-views');
+
+        // Load translations
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'wa-sender-client');
+
+        // Publish translations
+        $this->publishes([
+            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/wa-sender-client'),
+        ], 'wa-sender-client-translations');
     }
 }
